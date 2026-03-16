@@ -1,2 +1,2 @@
 # KAUST-ChrX-TDP43-Deficiency-Analysis
-Investigating Chromosome X gene expression changes under TDP-43 deficiency and their potential links to ALS pathways. KAUST Academy Stage 3 Mini-Project.
+Identifying Chromosome X genes affected by TDP-43 knockout, disrupted biological processes, and potential links to ALS/FTD pathology. KAUST Academy Stage 3 Mini-Project.
