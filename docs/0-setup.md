@@ -9,6 +9,7 @@ cd ~/chromosome_x
 ```
 # Create subdirectories for each analysis step
 ```bash
+mkdir raw_data
 mkdir subsampled_data
 mkdir trimmed_data
 mkdir references
