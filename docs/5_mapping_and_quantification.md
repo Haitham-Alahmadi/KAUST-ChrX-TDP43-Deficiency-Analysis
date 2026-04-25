@@ -99,4 +99,67 @@ done
 
 > **Note:** Mapping rates for chromosome-specific data may be lower than whole-genome data.
 
+# Aggregate to Gene Level with tximport
+Salmon outputs transcript-level counts. For differential expression with DESeq2, we aggregate to gene level using tximport.
 
+## Download the tximport Script
+We use a reusable R script that handles both tx2gene generation from GTF and tximport aggregation.
+### Navigate to the main directory
+```bash
+cd ~/chromosome_x
+```
+### Download the script
+```bash
+# Create scripts directory
+mkdir -p scripts
+
+# Download the tximport script from GitHub
+wget -O scripts/run_tximport.R https://raw.githubusercontent.com/bioinfo-kaust/academy-stage3-2026/refs/heads/main/scripts/run_tximport.R
+
+# Make it executable
+chmod +x scripts/run_tximport.R
+
+# View script help
+Rscript scripts/run_tximport.R --help
+```
+
+## Run tximport
+### Run the script
+```bash
+cd ~/chromosome_x
+
+# Run the tximport script with your GTF and Salmon output
+Rscript scripts/run_tximport.R \
+    --gtf references/Homo_sapiens.GRCh38.110.chrX.gtf \
+    --salmon_dir salmon_quant \
+    --outdir counts
+```
+### Check the output files
+```bash
+ls -lh counts/
+```
+
+## Explore the Expression Matrix
+### View count matrix and TPM values
+```bash
+# View the first few genes in the count matrix
+head -10 counts/gene_counts.tsv | column -t
+
+# How many genes have counts?
+wc -l counts/gene_counts.tsv
+
+# View TPM values (normalized)
+head -10 counts/gene_tpm.tsv | column -t
+
+# View sample info
+cat counts/sample_info.tsv
+```
+
+### Output files description
+| File | Description | Use |
+| :--- | :--- | :--- |
+| **gene_counts.tsv** | Raw counts | Input for DESeq2 |
+| **gene_tpm.tsv** | TPM values | Visualization |
+| **sample_info.tsv** | Sample metadata | DESeq2 design |
+| **tx2gene.tsv** | Transcript-to-gene mapping | Reference |
+| **tximport.rds** | R object | Direct DESeq2 input |
